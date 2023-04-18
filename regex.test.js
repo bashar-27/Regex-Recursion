@@ -27,16 +27,8 @@ required extention are jpg, jpeg and png.
 */
 
 function imagesSearcher(text){
-    let arr = [];
-    let reg= /\b\w+\.(jpg|jpeg|png)\b/;
-    let str=text.str(reg);
-    // if(str){
-    //     for (let index = 0; index < str.length; index++) {
-    //        arr.push(str[index]);
-            
-    //     }
-    // }
-    return arr
+    let reg = /\b[\w-]+\.(jpg|jpeg|png)\b/gi;
+    return (text.match(reg) || []).map(img => img.trim());
 }
 
 
@@ -61,7 +53,7 @@ describe("Test ioEmail", () => {
 
 
 describe("Test imagesSearcher", () => {
-    test.skip("It should return all images names that end with jpg, jpeg and png extention", () => {
+    test("It should return all images names that end with jpg, jpeg and png extention", () => {
         expect(imagesSearcher("Lorem ipsum dolor sit amet, consectetur adipiscing elit, cat.png sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. dog.jpg Ut enim ad minim veniam, quis nostrud exercitation ullamco cow.jpeg laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")).toStrictEqual(['cat.png', 'dog.jpg', 'cow.jpeg']);
         expect(imagesSearcher("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")).toStrictEqual([]);
         expect(imagesSearcher(" ")).toStrictEqual([]);
